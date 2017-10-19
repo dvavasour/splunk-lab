@@ -1,6 +1,6 @@
 #!/bin/bash
 
-use_case=$0
+use_case=$1
 
 function ssh_keys {
     (cd ~ec2-user; tar cf - .ssh | (cd ~splunk; tar xf - ; chown -R splunk:splunk .))
@@ -25,7 +25,7 @@ EOF
 chown splunk:splunk ~splunk/.bashrc
 }
 
-function bashrc_forwarder {
+function bashrc_splunk {
 cat >> ~splunk/.bashrc << EOF
 SPLUNK_HOME=/opt/splunk
 ####SPLUNK_HOME=/opt/splunkforwarder
@@ -82,24 +82,26 @@ function splunk_functions {
 case $use_case in
     NoInstall)
 	echo NoInstall > /tmp/usecase
+	echo $use_case >> /tmp/usecase
 	base_functions
 	;;
     ForwarderInstall)
 	echo ForwarderInstall > /tmp/usecase
+	echo $use_case >> /tmp/usecase
 	base_functions
 	bashrc_forwarder
 	forwarder_functions
 	;;
     SplunkInstall)
 	echo SplunkInstall > /tmp/usecase
+	echo $use_case >> /tmp/usecase
 	base_functions
 	bashrc_splunk
 	splunk_functions
 	;;
     *)
 	echo CatchAll > /tmp/usecase
+	echo $use_case >> /tmp/usecase
 	base_functions
 	;;
 esac
-
-echo $use_case
