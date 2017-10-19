@@ -80,20 +80,26 @@ function splunk_functions {
 }
 
 case $use_case in
-    NoInstall*)
+    NoInstall)
+	echo NoInstall > /tmp/usecase
 	base_functions
 	;;
-    ForwarderInstall*)
+    ForwarderInstall)
+	echo ForwarderInstall > /tmp/usecase
 	base_functions
 	bashrc_forwarder
 	forwarder_functions
 	;;
-    SplunkInstall*)
+    SplunkInstall)
+	echo SplunkInstall > /tmp/usecase
 	base_functions
 	bashrc_splunk
 	splunk_functions
 	;;
     *)
+	echo CatchAll > /tmp/usecase
 	base_functions
 	;;
 esac
+
+echo $use_case
