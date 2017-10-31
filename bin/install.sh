@@ -57,8 +57,26 @@ function install_splunk {
     /opt/splunk/bin/splunk enable boot-start -user splunk
 }
 
+function install_splunk7 {
+    (cd /opt; tar xzf /home/splunk/splunk7-software/splunk*)
+    chown -R splunk:splunk /opt/splunk
+
+    sudo -u splunk /opt/splunk/bin/splunk start --accept-license
+    sudo -u splunk /opt/splunk/bin/splunk edit user admin -password S0d0esme -auth admin:changeme
+    sudo -u splunk touch /opt/splunk/etc/.ui_login
+    /opt/splunk/bin/splunk enable boot-start -user splunk
+}
+
 function install_forwarder {
     (cd /opt; tar xzf /home/splunk/splunk-forwarder/splunk*)
+    chown -R splunk:splunk /opt/splunkforwarder
+
+    sudo -u splunk /opt/splunkforwarder/bin/splunk start --accept-license
+    /opt/splunkforwarder/bin/splunk enable boot-start -user splunk
+}
+
+function install_forwarder7 {
+    (cd /opt; tar xzf /home/splunk/splunk7-forwarder/splunk*)
     chown -R splunk:splunk /opt/splunkforwarder
 
     sudo -u splunk /opt/splunkforwarder/bin/splunk start --accept-license
@@ -79,6 +97,14 @@ function splunk_functions {
     install_splunk
 }
 
+function forwarder7_functions {
+    install_forwarder7
+}
+
+function splunk7_functions {
+    install_splunk7
+}
+
 case $use_case in
     NoInstall)
 	echo NoInstall > /tmp/usecase
@@ -92,12 +118,26 @@ case $use_case in
 	bashrc_forwarder
 	forwarder_functions
 	;;
+    Forwarder7Install)
+	echo ForwarderInstall > /tmp/usecase
+	echo $use_case >> /tmp/usecase
+	base_functions
+	bashrc_forwarder
+	forwarder7_functions
+	;;
     SplunkInstall)
 	echo SplunkInstall > /tmp/usecase
 	echo $use_case >> /tmp/usecase
 	base_functions
 	bashrc_splunk
 	splunk_functions
+	;;
+    Splunk7Install)
+	echo SplunkInstall > /tmp/usecase
+	echo $use_case >> /tmp/usecase
+	base_functions
+	bashrc_splunk
+	splunk7_functions
 	;;
     *)
 	echo CatchAll > /tmp/usecase
