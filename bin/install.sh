@@ -139,6 +139,11 @@ case $use_case in
 	bashrc_splunk
 	splunk7_functions
 	;;
+    FunStuff)
+	echo SplunkInstall > /tmp/usecase
+	echo $use_case >> /tmp/usecase
+	copy_fun_stuff
+	;;
     *)
 	echo CatchAll > /tmp/usecase
 	echo $use_case >> /tmp/usecase
