@@ -107,46 +107,57 @@ function splunk7_functions {
 
 case $use_case in
     NoInstall)
-	echo NoInstall > /tmp/usecase
+	echo NoInstall >> /tmp/usecase
 	echo $use_case >> /tmp/usecase
 	base_functions
 	;;
     ForwarderInstall)
-	echo ForwarderInstall > /tmp/usecase
+	echo ForwarderInstall >> /tmp/usecase
 	echo $use_case >> /tmp/usecase
 	base_functions
 	bashrc_forwarder
 	forwarder_functions
 	;;
     Forwarder7Install)
-	echo ForwarderInstall > /tmp/usecase
+	echo ForwarderInstall >> /tmp/usecase
 	echo $use_case >> /tmp/usecase
 	base_functions
 	bashrc_forwarder
 	forwarder7_functions
 	;;
+    Forwarder7Only)
+	echo ForwarderInstall >> /tmp/usecase
+	echo $use_case >> /tmp/usecase
+	bashrc_forwarder
+	forwarder7_functions
+	;;
     SplunkInstall)
-	echo SplunkInstall > /tmp/usecase
+	echo SplunkInstall >> /tmp/usecase
 	echo $use_case >> /tmp/usecase
 	base_functions
 	bashrc_splunk
 	splunk_functions
 	;;
     Splunk7Install)
-	echo SplunkInstall > /tmp/usecase
+	echo SplunkInstall >> /tmp/usecase
 	echo $use_case >> /tmp/usecase
 	base_functions
 	bashrc_splunk
 	splunk7_functions
 	;;
+    Splunk7Only)
+	echo SplunkInstall >> /tmp/usecase
+	echo $use_case >> /tmp/usecase
+	bashrc_splunk
+	splunk7_functions
+	;;
     FunStuff)
-	echo SplunkInstall > /tmp/usecase
+	echo SplunkInstall >> /tmp/usecase
 	echo $use_case >> /tmp/usecase
 	copy_fun_stuff
 	;;
     *)
-	echo CatchAll > /tmp/usecase
+	echo CatchAll >> /tmp/usecase
 	echo $use_case >> /tmp/usecase
-	base_functions
 	;;
 esac
