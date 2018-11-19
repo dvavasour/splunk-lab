@@ -110,6 +110,7 @@ case $use_case in
 	echo NoInstall >> /tmp/usecase
 	echo $use_case >> /tmp/usecase
 	base_functions
+	bashrc_splunk
 	;;
     ForwarderInstall)
 	echo ForwarderInstall >> /tmp/usecase
