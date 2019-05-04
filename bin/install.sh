@@ -59,6 +59,7 @@ function install_splunk {
 
 function install_splunk7 {
     (cd /opt; tar xzf /home/splunk/splunk7-software/splunk*)
+    mv /home/splunk/bin/user-seed.conf /opt/splunk/etc/system/local
     chown -R splunk:splunk /opt/splunk
 
     sudo -u splunk /opt/splunk/bin/splunk start --accept-license
