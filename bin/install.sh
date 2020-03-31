@@ -78,6 +78,7 @@ function install_forwarder {
 
 function install_forwarder7 {
     (cd /opt; tar xzf /home/splunk/splunk7-forwarder/splunk*)
+    mv /home/splunk/bin/user-seed.conf /opt/splunk/etc/system/local
     chown -R splunk:splunk /opt/splunkforwarder
 
     sudo -u splunk /opt/splunkforwarder/bin/splunk start --accept-license
